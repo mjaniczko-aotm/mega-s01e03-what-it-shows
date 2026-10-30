@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>#4471 · two date-handling causes · support kb</title>
+    <style>
+      :root { --bg: #fbfaf7; --fg: #1d1d1b; --muted: #6b6a66; --line: #e3e0d8; --accent: #2f6f5e; }
+      @media (prefers-color-scheme: dark) {
+        :root { --bg: #171716; --fg: #ecebe6; --muted: #9c9a93; --line: #34332f; --accent: #6fbfa6; }
+      }
+      body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, sans-serif; }
+      main { max-width: 760px; margin: 0 auto; padding: 2rem 16px 4rem; }
+      .crumb, .meta, footer { color: var(--muted); font-size: .85rem; }
+      .crumb { font-family: ui-monospace, monospace; text-decoration: none; }
+      h1 { margin: .25rem 0 .5rem; line-height: 1.2; }
+      .meta { display: flex; flex-wrap: wrap; gap: .5rem 1rem; }
+      .status { border: 1px solid var(--line); border-radius: 99px; padding: 0 .6rem; }
+      table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .92rem; }
+      th, td { border-bottom: 1px solid var(--line); padding: .35rem .5rem; text-align: left; }
+      code { font-family: ui-monospace, monospace; font-size: .88em; }
+      a { color: var(--accent); }
+      footer { margin-top: 3rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="/kb">support desk · kb</a>
+      <h1>#4471 · two date-handling causes</h1>
+      <p class="meta"><span>owner <b>mjaniczko-aotm</b></span><span class="status">known</span><span>reviewed 2026-10-30</span></p>
+
+      <p>Ticket #4471 contains reports for two separate date-handling problems. The export has 427 rows, including 15 repeated report IDs; after deduplication, 412 reports remain. The cause comes from the tenant's date locale, booking form, and submission channel, not the intake tag.</p>
+
+      <h2>Causes in the export</h2>
+      <p><strong>412</strong> reports merged into #4471 · <strong>2</strong> causes</p>
+      <table>
+        <thead><tr><th>cause</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th>ticket</th></tr></thead>
+        <tbody>
+          <tr><td><code>parser</code></td><td>379</td><td>parser ×356 · hint ×23</td><td>11</td><td>2026-04-01 → 2026-10-04</td><td>#4471</td></tr>
+          <tr><td><code>hint</code></td><td>33</td><td>parser ×15 · hint ×18</td><td>3</td><td>2026-04-17 → 2026-09-22</td><td>no ticket of its own yet</td></tr>
+        </tbody>
+      </table>
+      <p>5 reports read as a one-day move; filed under <code>parser</code> by tenant.</p>
+
+      <h3>Shared parser · 379 reports</h3>
+      <p>The shared parser reads every date month first. For day-first tenants, dates from the app, email, and booking-v2 form are therefore interpreted with month and day reversed. The supplied triage data groups these reports under <code>parser</code>.</p>
+
+      <h3>Booking-v3 date hint · 33 reports</h3>
+      <p>The booking-v3 form displays <code>MM/DD/YYYY</code> to tenants whose locale is day-first. A person who follows that hint enters a month-first date, while the form handles dates in the tenant's day-first context. These form reports are a different problem from the shared parser.</p>
+
+      <p>The five IDs in <code>desk-notes.json</code> describe one-day moves, but the tenant/form rules still place them within the parser cause. They do not form a third cause.</p>
+
+      <h2>Tickets</h2>
+      <ul>
+        <li><a href="https://github.com/mjaniczko-aotm/mega-s01e03-what-it-shows/issues/1">Shared parser issue</a></li>
+        <li><a href="https://github.com/mjaniczko-aotm/mega-s01e03-what-it-shows/issues/2">Booking-v3 date-hint issue</a></li>
+      </ul>
+
+      <p style="margin-top:2rem;color:var(--muted);font: .85rem ui-monospace,monospace">desk ref <b>DR-BAB1-RSCH</b></p>
+      <footer>Pages are written by people. Tables and charts are built from data at render time.</footer>
+    </main>
+  </body>
+</html>

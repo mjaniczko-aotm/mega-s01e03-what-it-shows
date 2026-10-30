@@ -1,0 +1,45 @@
+---
+layout: runbook
+title: '#4471 · two date-handling causes'
+owner: mjaniczko-aotm
+status: known
+reviewed: 2026-10-30
+signature: mjaniczko-aotm
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+
+  const signature = 'mjaniczko-aotm';
+</script>
+
+Ticket #4471 contains reports for two separate date-handling problems. The export has 427 rows,
+including 15 repeated report IDs; after deduplication, 412 reports remain. The cause comes from
+the tenant's date locale, booking form, and submission channel, not the intake tag.
+
+## Causes in the export
+
+<CauseTable ticket={4471} />
+
+### Shared parser · 379 reports
+
+The shared parser reads every date month first. For day-first tenants, dates from the app,
+email, and booking-v2 form are therefore interpreted with month and day reversed. The supplied
+triage data groups these reports under `parser`.
+
+### Booking-v3 date hint · 33 reports
+
+The booking-v3 form displays `MM/DD/YYYY` to tenants whose locale is day-first. A person who
+follows that hint enters a month-first date, while the form handles dates in the tenant's
+day-first context. These form reports are a different problem from the shared parser.
+
+The five IDs in `desk-notes.json` describe one-day moves, but the tenant/form rules still place
+them within the parser cause. They do not form a third cause.
+
+## Tickets
+
+- [Shared parser issue](https://github.com/mjaniczko-aotm/mega-s01e03-what-it-shows/issues/1)
+- [Booking-v3 date-hint issue](https://github.com/mjaniczko-aotm/mega-s01e03-what-it-shows/issues/2)
+
+<RenderStamp {signature} />
