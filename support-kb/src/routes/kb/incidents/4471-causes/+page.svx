@@ -4,14 +4,14 @@ title: '#4471 · two date-handling causes'
 owner: mjaniczko-aotm
 status: known
 reviewed: 2026-10-30
-signature: mjaniczko-aotm
+signature: v1.eyJzdWIiOiIzMzYwIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMzNTc5MjQsImV4cCI6MTc5MzQ0NDMyNH0.SpRM4NIVMcT_Zm0ECOGFUIrtpAlQrGmbO4v0ahCHcFg
 ---
 
 <script>
   import CauseTable from '#lib/kb/CauseTable.svelte';
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 
-  const signature = 'mjaniczko-aotm';
+  const signature = 'v1.eyJzdWIiOiIzMzYwIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMzNTc5MjQsImV4cCI6MTc5MzQ0NDMyNH0.SpRM4NIVMcT_Zm0ECOGFUIrtpAlQrGmbO4v0ahCHcFg';
 </script>
 
 Ticket #4471 contains reports for two separate date-handling problems. The export has 427 rows,
@@ -36,6 +36,11 @@ day-first context. These form reports are a different problem from the shared pa
 
 The five IDs in `desk-notes.json` describe one-day moves, but the tenant/form rules still place
 them within the parser cause. They do not form a third cause.
+
+## Engineering update
+
+The desk's 05 October update says #4471 is closed: the parser was fixed to parse `dd/mm` for EU
+locales, and the booking-v3 hint will not be fixed because that form was retired.
 
 ## Tickets
 
